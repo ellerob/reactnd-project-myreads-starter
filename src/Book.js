@@ -6,14 +6,15 @@ class Book extends React.Component {
     const book = this.props
     let bookCover
     const title = book.title ? book.title : "No Title"
+    const authors = book.authors ? book.authors : "no authors"
     //const thumbnail = book.imageLinks.thumbnail ? book.imageLinks.thumbnail : 'null'
     const smallThumbnail = book.imageLinks.smallThumbnail ? book.imageLinks.smallThumbnail : 'null'
     if (smallThumbnail !== 'null') {
       bookCover = smallThumbnail
-    // } else if (smallThumbnail !== 'null') {
-    //   bookCover = smallTumbnail
-    // } 
-     } else {
+      // } else if (smallThumbnail !== 'null') {
+      //   bookCover = smallTumbnail
+      // } 
+    } else {
       bookCover = 'null'
     }
     return (
@@ -31,7 +32,13 @@ class Book extends React.Component {
           </div>
         </div>
         <div className="book-title">{title}</div>
-        <div className="book-authors">{book.author}</div>
+        <div>
+          {authors.map((author, index) => (
+            <li key={index} className="book-authors">
+              {author}
+            </li>
+          ))}
+        </div>
       </div>
     )
   }
