@@ -1,35 +1,36 @@
 import React from 'react'
 import './App.css'
+import BookShelfChanger from './BookshelfChanger'
 
 class Book extends React.Component {
   render() {
-    const book = this.props
+    const { onShelfChange, books, book } = this.props
     let bookCover
-    const title = book.title ? book.title : "No Title"
-    const authors = book.authors ? book.authors : "no authors"
-    //const thumbnail = book.imageLinks.thumbnail ? book.imageLinks.thumbnail : 'null'
-    const smallThumbnail = book.imageLinks.smallThumbnail ? book.imageLinks.smallThumbnail : 'null'
+    let thisShelf = 'none'
+    const title = book.title || "No title"
+    const authors = book.authors || "No authors"
+    const smallThumbnail = book.imageLinks.smallThumbnail || 'null'
+    
     if (smallThumbnail !== 'null') {
       bookCover = smallThumbnail
-      // } else if (smallThumbnail !== 'null') {
-      //   bookCover = smallTumbnail
-      // } 
-    } else {
-      bookCover = 'null'
     }
+
+    for (let thisBook of books ) {
+      if (thisBook.id === book.id)  {
+        thisShelf = thisBook.shelf
+        break
+      }
+    }
+
     return (
       <div className="book">
         <div className="book-top">
           <div className="book-cover" style={{ width: 128, height: 190, backgroundImage: `url("${bookCover}")` }}></div>
-          <div className="book-shelf-changer">
-            <select>
-              <option value="none" disabled>Move to...</option>
-              <option value="currentlyReading">Currently Reading</option>
-              <option value="wantToRead">Want to Read</option>
-              <option value="read">Read</option>
-              <option value="none">None</option>
-            </select>
-          </div>
+          <BookShelfChanger 
+            book={book}
+            thisShelf={thisShelf}
+            onShelfChange={onShelfChange}
+          />
         </div>
         <div className="book-title">{title}</div>
         <div>

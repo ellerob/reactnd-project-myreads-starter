@@ -7,11 +7,22 @@ class BooksApp extends React.Component {
   state = {
     books: []
   }
+
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
       this.setState({ books })
     })
   }
+
+  onShelfChange = (newBook, newShelf) => {
+    newBook.shelf = newShelf
+    const updatedBooks = this.state.books.filter(book => book.id !== newBook.id)
+    BooksAPI.update(newBook, newShelf).then(response => {
+      updatedBooks.push(newBook);
+      this.setState({ books: updatedBooks })
+    })
+  }
+
   render() {
     const shelves = [
       { id: 'currentlyReading', name: 'Currently Reading' },
@@ -30,6 +41,7 @@ class BooksApp extends React.Component {
                 <BookShelf
                   shelf={shelf}
                   books={this.state.books}
+                  onShelfChange={this.onShelfChange}
                 />
               </li>
             ))}
