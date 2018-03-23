@@ -2,7 +2,7 @@ import React from 'react'
 import './App.css'
 import Book from './Book'
 
-class BookShelf extends React.Component {
+class Bookshelf extends React.Component {
   render() {
     const { shelf, books, onShelfChange } = this.props
     const booksOnShelf = books.filter(book => book.shelf === shelf.id)
@@ -28,4 +28,4 @@ class BookShelf extends React.Component {
   }
 }
 
-export default BookShelf
+export default Bookshelf

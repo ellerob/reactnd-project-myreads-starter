@@ -1,20 +1,21 @@
 import React from 'react'
 import './App.css'
 import BookShelfChanger from './BookshelfChanger'
+import BlankImage from './icons/BlankImage.png'
 
 class Book extends React.Component {
   render() {
     const { onShelfChange, books, book } = this.props
-    let bookCover
+    
     let thisShelf = 'none'
     const title = book.title || "No title"
-    const authors = book.authors || "No authors"
-    const smallThumbnail = book.imageLinks.smallThumbnail || 'null'
+    const authors = book.authors || []
+    let bookCover = book.imageLinks || BlankImage
     
-    if (smallThumbnail !== 'null') {
-      bookCover = smallThumbnail
+    if (bookCover !== BlankImage) {
+      bookCover = book.imageLinks.smallThumbnail
     }
-
+    
     for (let thisBook of books ) {
       if (thisBook.id === book.id)  {
         thisShelf = thisBook.shelf
@@ -25,7 +26,7 @@ class Book extends React.Component {
     return (
       <div className="book">
         <div className="book-top">
-          <div className="book-cover" style={{ width: 128, height: 190, backgroundImage: `url("${bookCover}")` }}></div>
+          <div className="book-cover" style={{ width: 128, height: 190, backgroundImage: `url(${bookCover})` }}></div>
           <BookShelfChanger 
             book={book}
             thisShelf={thisShelf}
@@ -35,9 +36,9 @@ class Book extends React.Component {
         <div className="book-title">{title}</div>
         <div>
           {authors.map((author, index) => (
-            <li key={index} className="book-authors">
+            <a key={index} className="book-authors">
               {author}
-            </li>
+            </a>
           ))}
         </div>
       </div>
