@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Bookshelf from './Bookshelf'
+import BookShelf from './BookShelf'
 
 class BookshelfPage extends React.Component {
   render() {
@@ -18,7 +18,7 @@ class BookshelfPage extends React.Component {
         <div className="list-books-content">
           {shelves.map((shelf) => (
             <li key={shelf.id} className="bookshelf">
-              <Bookshelf
+              <BookShelf
                 shelf={shelf}
                 books={books}
                 onShelfChange={onShelfChange}

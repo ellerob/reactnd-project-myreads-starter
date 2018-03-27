@@ -21,6 +21,9 @@ class SearchPage extends React.Component {
         }
       })
     }
+    if (query.length === 0) {
+      this.setState({ showingBooks: [] })
+    }
   }
 
   render() {
