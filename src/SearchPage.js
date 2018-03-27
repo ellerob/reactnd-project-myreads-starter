@@ -11,7 +11,7 @@ class SearchPage extends React.Component {
 
   updateQuery = (event) => {
     const query = event
-    this.setState({ query: query.trim() })
+    this.setState({ query })
     if (query) {
       BooksAPI.search(query, 20).then((books) => {
         if (books.length > 0) {
